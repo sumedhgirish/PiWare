@@ -1,3 +1,4 @@
+import sys
 import gpiozero as gpio
 from signal import pause
 
@@ -6,8 +7,12 @@ def main():
 
     # testing some cool stuff
     led = gpio.LED(18);
-    led.blink()
-    pause()
+    try:
+        led.blink()
+        pause()
+    except (KeyboardInterrupt, EOFError):
+        print("Exiting")
+        sys.exit(0)
 
 
 if __name__ == "__main__":
