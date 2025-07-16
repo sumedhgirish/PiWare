@@ -1,5 +1,4 @@
 import gpiozero as gpio
-from signal import pause
 
 def main():
     print("Hello from piware!")
@@ -8,7 +7,8 @@ def main():
     led = gpio.LED(18);
     try:
         led.blink()
-        pause()
+        while True:
+            pass
     except (KeyboardInterrupt, EOFError):
         print("Exiting")
 
