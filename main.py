@@ -1,4 +1,3 @@
-import sys
 import gpiozero as gpio
 from signal import pause
 
@@ -12,7 +11,6 @@ def main():
         pause()
     except (KeyboardInterrupt, EOFError):
         print("Exiting")
-        sys.exit(0)
 
 
 if __name__ == "__main__":
