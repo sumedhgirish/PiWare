@@ -3,7 +3,7 @@ from signal import pause
 
 from gpiozero.output_devices import PiGPIOFactory
 
-factory = PiGPIOFactory()
+gpio.Device.pin_factory = PiGPIOFactory("127.0.0.1", "8888")
 
 
 def main():
@@ -11,7 +11,7 @@ def main():
 
     # testing some cool stuff
 
-    led = gpio.LED(18, pin_factory=factory);
+    led = gpio.LED(18);
     led.blink()
     pause()
 
