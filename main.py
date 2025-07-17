@@ -26,7 +26,10 @@ def main():
     step_cycle = [[1, 0, 0, 0], [0, 0, 0, 1], [0, 1, 0, 0], [0, 0, 1, 0]][::-1]
     motor = motors.StepperMotor(200, IN1, IN2, IN3, IN4, step_cycle=step_cycle)
     print(motor)
-    motor.move_steps(200)
+    motor.move_steps(200 * 5)
+    print(motor)
+    motor.direction = motor.CCW
+    motor.move_steps(200*5)
     print(motor)
 
     signal.pause()

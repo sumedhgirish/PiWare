@@ -21,7 +21,7 @@ class StepperMotor(gpio.Device):
         self.cur_step = 0
 
         # make this a dynamically calculated motion curve with feedback later
-        self.speed = 720 # rpm
+        self.speed = 240 # rpm
         self.step_delay = 60 / self.num_steps / self.speed
 
         self.step_cycle = kwargs.get("step_cycle", [[i==j for i in range(self.num_pins)] for j in range(self.num_pins)])
@@ -42,7 +42,8 @@ class StepperMotor(gpio.Device):
                 pin.off()
 
     def move_steps(self, nsteps):
+        step_cycle = self.step_cycle[::self.direction]
         for _ in range(nsteps):
-            self._set_state(self.step_cycle[self.cur_step % self.cycle_len])
+            self._set_state(step_cycle[self.cur_step % self.cycle_len])
             self.cur_step += 1
             time.sleep(self.step_delay)
