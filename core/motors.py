@@ -45,5 +45,5 @@ class StepperMotor(gpio.Device):
         step_cycle = self.step_cycle[::self.direction]
         for _ in range(nsteps):
             self._set_state(step_cycle[self.cur_step % self.cycle_len])
-            self.cur_step += 1
+            self.cur_step += self.direction
             time.sleep(self.step_delay)
