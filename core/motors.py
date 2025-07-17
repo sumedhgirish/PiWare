@@ -31,7 +31,7 @@ class StepperMotor(gpio.Device):
         return "StepperMotor(" + \
             f"num_pins={self.num_pins}, " + \
             f"direction={'CW' if self.direction > 0 else 'CCW'}, " + \
-            f"angle_moved={self.cur_step * self.angle_per_step}°" + \
+            f"absolute_angle_moved={self.cur_step * self.angle_per_step}°" + \
             ")"
 
     def _set_state(self, state):
@@ -45,5 +45,5 @@ class StepperMotor(gpio.Device):
         step_cycle = self.step_cycle[::self.direction]
         for _ in range(nsteps):
             self._set_state(step_cycle[self.cur_step % self.cycle_len])
-            self.cur_step += self.direction
+            self.cur_step += 1
             time.sleep(self.step_delay)
