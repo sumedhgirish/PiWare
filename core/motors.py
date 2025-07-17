@@ -1,5 +1,5 @@
 import gpiozero as gpio
-
+import time
 
 class StepperMotor(gpio.Device):
 
@@ -19,6 +19,7 @@ class StepperMotor(gpio.Device):
         self.num_steps = num_steps
         self.angle_per_step = 360 / self.num_steps
         self.cur_step = 0
+        self.step_delay = 60 / self.num_steps / 240     # assumes a speed of 240 rpm, which we should change at some point
 
         self.step_cycle = kwargs.get("step_cycle", [[i==j for i in range(self.num_pins)] for j in range(self.num_pins)])
         self.cycle_len = len(self.step_cycle)
@@ -36,6 +37,8 @@ class StepperMotor(gpio.Device):
                 pin.on()
             else:
                 pin.off()
+
+            time.sleep(self.step_delay)
 
     def move_steps(self, nsteps):
         for _ in range(nsteps):

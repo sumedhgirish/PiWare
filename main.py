@@ -25,7 +25,7 @@ def main():
 
     motor = motors.StepperMotor(200, IN1, IN2, IN3, IN4)
     print(motor)
-    motor.move_steps(1)
+    motor.move_steps(200)
     print(motor)
 
     signal.pause()
