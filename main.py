@@ -1,6 +1,11 @@
+from core import motors
+
 import gpiozero as gpio
 import signal
 from sys import argv
+
+# Motor Pins
+IN1, IN2, IN3, IN4 = 18, 23, 24, 25
 
 stop = False
 
@@ -18,15 +23,14 @@ def main():
     global stop
     print("Hello from piware!")
 
-    # testing some cool stuff
-    led = gpio.LED(18);
-    led.blink()
+    motor = motors.StepperMotor(200, IN1, IN2, IN3, IN4)
+    print(motor)
+    motor.move_steps(1)
+    print(motor)
 
     signal.pause()
-
     if stop:
-        led.off()
-
+        pass
 
 if __name__ == "__main__":
     signal.signal(signal.SIGINT, IntHandler)
