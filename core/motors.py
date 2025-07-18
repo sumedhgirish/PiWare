@@ -54,3 +54,7 @@ class StepperMotor(gpio.Device):
 
     def move_angle(self, delta):
         self.move_steps(int(delta/self.angle_per_step))
+
+    def set_speed(self, speed):
+        self.speed = speed
+        self.step_delay = 60 / self.num_steps / self.speed
