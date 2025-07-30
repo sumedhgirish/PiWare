@@ -30,7 +30,7 @@ def main():
 
     signal.pause()
     if stop:
-        pass
+        motor.close()
 
 if __name__ == "__main__":
     signal.signal(signal.SIGINT, IntHandler)

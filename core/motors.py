@@ -1,3 +1,4 @@
+from typing import override
 import gpiozero as gpio
 import time
 
@@ -13,6 +14,7 @@ class StepperMotor(gpio.Device):
         super().__init__(pin_factory=pin_factory)
 
         self.pins = list(map(gpio.OutputDevice, args))
+        assert all(pin.pin != None for pin in self.pins), "Recieved a closed GPIO Pin"
         self.num_pins = len(args)
 
         self.direction = self.CW
@@ -53,8 +55,11 @@ class StepperMotor(gpio.Device):
             time.sleep(self.step_delay)
 
     def move_angle(self, delta):
-        self.move_steps(int(delta/self.angle_per_step))
+        self.move_steps(int(delta / self.angle_per_step))
 
     def set_speed(self, speed):
         self.speed = speed
         self.step_delay = 60 / self.num_steps / self.speed
+
+    def reverse_direction(self):
+        self.direction *= -1
